@@ -1,0 +1,74 @@
+.vr {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+}
+
+.vr__eye {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+.vr__viewport {
+  height: 100%;
+  position: relative;
+  /*perspective: xxx; set by js */
+}
+
+.vr__camera, .vr__cursor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%);
+}
+
+.vr__cursor {
+  padding: 5% 5% 0 0;
+  border: .6vw solid #0c0;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.vr__cursor--hover {
+  animation: cursor 1s .5s forwards;
+}
+
+.vr--stereoscopic .vr__cursor {
+  border-width: .3vw;
+}
+
+@keyframes cursor {
+  0% {
+    border-color: #0c0;
+  }
+  25% {
+    border-top-color: red;
+    border-right-color: #0c0;;
+    border-bottom-color: #0c0;;
+    border-left-color: #0c0;;
+  }
+  50% {
+    border-top-color: red;
+    border-right-color: red;
+    border-bottom-color: #0c0;
+    border-left-color: #0c0;
+  }
+  75% {
+    border-top-color: red;
+    border-right-color: red;
+    border-bottom-color: red;
+    border-left-color: #0c0;
+  }
+  100% {
+    border-top-color: red;
+    border-right-color: red;
+    border-bottom-color: red;
+    border-left-color: red;
+  }
+}

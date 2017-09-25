@@ -1,0 +1,25 @@
+{
+  "name": "cssvr",
+  "version": "1.0.0",
+  "description": "CSSVR is an experiment that simulates browser support for creating VR experiences using media queries and CSS transforms.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Keith Clark",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keithclark/cssvr"
+  },
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-babili": "^0.1.4",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "rollup-stream": "^1.23.1",
+    "run-sequence": "^2.1.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

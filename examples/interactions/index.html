@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <title>CSS VR Prototype</title>
+  <link rel="stylesheet" href="../common/demo-screen.css" media="screen">
+  <link rel="stylesheet" href="../common/demo-cssvr.css" media="cssvr">
+  <style>
+    
+    /* GENERAL STYLES
+    ========================================================= */
+    @media screen {
+      #root {
+        display: none;
+      }
+    }
+
+
+    /* THE VR DEMO STYLESHEET 
+    ========================================================= */
+    @media cssvr {
+      #instructions {
+        display: none;
+      }
+      #root {
+        display: block;
+      }
+
+      /* Demo structure
+      ------------------------------------------------------- */
+      input {
+        display: none;
+      }
+
+      .three-d {
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform-style: preserve-3d;
+        transform: translate(-50%,-50%);
+      }
+
+      .bg {
+        width: 2000px;
+        height: 2000px;
+        background: url(img/space.jpg) 50% 50% / cover;
+        transform: translate(-50%,-50%) translateY(500px) translateZ(-1800px) scale(3);
+      }
+
+      /* Room elements */
+      .wall {
+        width: 800px;
+        height: 800px;
+        background-color: #88a;
+        background-image: radial-gradient(rgba(170,170,170,.4) 30%, rgba(0,0,0,.9)),
+                          linear-gradient(45deg,#c33 25%,transparent 25%,transparent 75%,#c33 75%,#c33 100%),
+                          linear-gradient(45deg,#c33 25%,transparent 25%,transparent 75%,#c33 75%,#c33 100%)
+                          ;
+        background-size: 100%, 100px 100px, 100px 100px;
+        background-position: 0 0, -25px -25px, 25px 25px;
+        border: 1px solid transparent;
+      }
+
+      .wall--front {
+        transform: translate(-50%,-50%) translateZ(-400px);
+        transition: 1s transform;
+      }
+      .wall--back {
+        transform: translate(-50%,-50%) rotateY(180deg) translateZ(-400px);
+      }
+      .wall--left {
+        transform: translate(-50%,-50%) rotateY(-90deg) translateZ(-400px);
+      }
+      .wall--right {
+        transform: translate(-50%,-50%) rotateY(90deg) translateZ(-400px);
+      }
+      .wall--bottom {
+        transform: translate(-50%,-50%) rotateX(90deg) translateZ(-400px);
+      }
+      .wall--top {
+        transform: translate(-50%,-50%) rotateX(90deg) translateZ(400px);
+      }
+
+      /* Text elements */
+      .text {
+        font: 200% / 1 Arial;
+        text-shadow: 0 0 1px #000;
+        white-space: nowrap;
+        box-shadow: 0 0 1px red;
+        padding: .25em;
+      }
+      .text--css {
+        font-size: 300%;
+        transform-origin: 50% 50% -50px;
+        color: #48f;
+        animation: text-spin 3s linear infinite;
+      }
+      .text--cssvr {
+        transform: translate3d(-50%, -50%, -550px) translateY(-2em);
+        font-size: 350%;
+        color: #fff;
+      }
+      .text--demo {
+        font-size: 150%;
+        transform: translate3d(-50%, -50%, -430px) translateY(-2em);
+        color: #fff;
+      }
+      .text--test, .text--door{
+        color: #fff;
+        background-color: #000;
+        border-radius: 2em;
+        text-align: center;
+      }
+      .text--test {
+        transform: translate3d(-50%, -50%, 390px) translateY(-2em) rotateY(180deg);
+        width: 6em;
+      }
+      .text--door {
+        font-size: 120%;
+        transform: translate3d(-50%, -50%, -300px) translateX(399px) rotateY(-90deg);
+        padding: 1em .5em;
+
+      }
+
+      @keyframes text-spin {
+        from {
+          transform: translate3d(-50%, -50%, -700px) translateY(-200px) rotateX(0deg);
+        }
+        to {
+          transform: translate3d(-50%, -50%, -700px) translateY(-200px) rotateX(-360deg);
+        }
+      }
+
+      /* Interactivity
+      ------------------------------------------------------- */
+
+      /* :hover states */
+      .text:hover {
+        background-color: rgba(0,255,100,.5);
+      }
+
+
+      /* Animated door */
+      #door-control ~ .text--door::before {
+        content: 'Open ';
+      }
+      #door-control:checked ~ .wall--front {
+        transform: translate3d(-50%,-50%,-400px) translateX(-100%);
+      }      
+      #door-control:checked ~ .text--door::before {
+        content: 'Close ';
+      }
+
+      /* :hover demo */
+      .text--test::after {
+        position: absolute;
+        content: '🚀 🚀 🚀 🚀 🚀';
+        left: 50%;
+        top: 50%;
+        font-size: 75%;
+        transition: .75s all;
+        opacity: 0;
+        transform: translate3d(-50%, -50%, -150px);
+      }
+      .text--test:hover::after {
+        opacity: 1;
+        transform: translate3d(-50%, -50%, 200px) translateY(-3em);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <input type="checkbox" id="door-control">
+    <label for="door-control" class="three-d text text--door" vr-action>door</label>
+    <div class="three-d bg"></div>
+    <div class="three-d text text--css">CSS</div>
+    <div class="three-d text text--cssvr">CSSVR</div>
+    <div class="three-d text text--demo">interactive demo scene</div>
+    <div class="three-d text text--test">:hover me</div>
+    <div class="three-d wall wall--top"></div>
+    <div class="three-d wall wall--bottom"></div>
+    <div class="three-d wall wall--front"></div>
+    <div class="three-d wall wall--left"></div>
+    <div class="three-d wall wall--back"></div>
+    <div class="three-d wall wall--right"></div>
+  </div>
+  <div id="instructions">
+    <h1>CSSVR: Interaction demo</h1>
+    <p>Please orientate your viewport to landscape and, if
+      your browser supports it, enable fullscreen. Then insert
+      your device into a VR headset.</p>
+    <p>For the best experience, add to your homescreen.</p>
+    <button type="button" class="button" id="start">Start</button>
+    <p class="credits">
+      A <a href="http://keithclark.co.uk">Keith Clark</a>
+      experiment. Questions? You can find me on
+      <a href="https://twitter.com/keithclarkcouk">twitter</a>.
+  </div>
+  <script src="../../dist/cssvr.min.js"></script>
+  <script src="../common/vendor/no-sleep.min.js"></script>
+  <script>
+    var vrConfig = {
+      root: document.getElementById('root'),
+      fov: 70,
+      projection: 'stereo',
+      stereoPitch: 50,
+      cameraHeight: 120
+    };
+  </script>
+  <script src="../common/demo.js"></script>
+</body>
+</html>

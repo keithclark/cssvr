@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <title>CSS VR - Hello World by Keith Clark</title>
+  <link rel="stylesheet" href="../common/demo-screen.css" media="screen">
+  <link rel="stylesheet" href="../common/demo-cssvr.css" media="cssvr">
+  <style>
+    @media cssvr {
+      body {
+        background: #333;
+      }
+      .button {
+        display: none;
+      }
+      .three-d {
+        position: absolute;
+        margin: 0;
+        top: 50%;
+        left: 50%;
+      }
+      .near {
+        transform: translate3d(-50%, -50%, -400px);
+        border: 1px solid red;
+        width: 6em;
+        text-align: center;
+        padding: .2em .5em;
+      }
+      .far {
+        width: 500px;
+        height: 500px;
+        transform: translate3d(-50%, -50%, -900px);
+        border: 1px solid blue;
+        background: #fc0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <h1 class="three-d near">CSSVR: Hello world</h1>
+    <div class="three-d far"></div>
+    <button type="button" class="three-d button" id="start">Start</button>
+  </div>
+  <script src="../../dist/cssvr.min.js"></script>
+  <script src="../common/vendor/no-sleep.min.js"></script>
+  <script>
+    var vrConfig = {
+      root: document.getElementById('root'),
+      fov: 70,
+      projection: 'stereo',
+      stereoPitch: 50,
+      cameraHeight: 0
+    };
+  </script>
+  <script src="../common/demo.js"></script>
+</body>
+</html>

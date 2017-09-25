@@ -1,0 +1,26 @@
+body {
+  padding: 2%;
+  font: 115% / 1.25 Arial;
+}
+
+h1,h3 {
+  margin: 0 0 1em 0;
+}
+
+.button {
+  font: inherit;
+  border: none;
+  border-radius: 5px;
+  background: #b30027;
+  color: #fff;
+  text-decoration: none;
+  padding: .85em 1em;
+  display: inline-block;
+}
+
+.credits {
+  font-size: 80%;
+  margin-top: 5em;
+  padding-top: 1em;
+  border-top: 1px solid #ccc;
+}
