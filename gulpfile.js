@@ -31,9 +31,9 @@ gulp.task('inlinecss', function() {
 
 gulp.task('bundlejs', function() {
   return rollup({
-    entry: './src/js/vr.js',
+    input: './src/js/vr.js',
     format: 'iife',
-    moduleName: 'CSSVR',
+    name: 'CSSVR',
   })
   .pipe(source('cssvr-nocss.js'))
   .pipe(gulp.dest('./build'))
