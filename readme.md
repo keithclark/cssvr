@@ -33,12 +33,12 @@ or, inline the styles with:
 ```html
 <style>
   @media cssvr {
-    /* CSS rules go here */
+    /* CSS rules */
   }
 </style>
 ```
 
-This prototype doesn't contain a CSS parser so it won't fetch and process the content of remote CSS content. This means you can't use the `cssvr` media type in any linked stylesheets. 
+This prototype doesn't contain a CSS parser so it won't fetch and process the content of remote CSS content. This means you can't use the `cssvr` media type in any linked cascading stylesheets. 
 
 
 ### Add the JS Client
